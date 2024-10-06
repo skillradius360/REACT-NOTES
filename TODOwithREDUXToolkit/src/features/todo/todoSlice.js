@@ -11,6 +11,7 @@ export const todoSlice=  createSlice(
         reducers:{
             addTodo: (state,action)=>{
                 const todo = {
+
                     id:nanoid(),
                     text:action.payload
                 }
@@ -24,7 +25,7 @@ export const todoSlice=  createSlice(
 
             updateTodo : (state,action)=>{
                 state.todos = state.todos.map((data)=>
-                    data.id===action.payload.id?{...data,text:action.payload.text}:data
+                    data.id==action.payload.id?{...data,text:action.payload.text}:data
                 )  
             }
 

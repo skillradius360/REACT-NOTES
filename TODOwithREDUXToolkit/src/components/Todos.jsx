@@ -1,22 +1,47 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {useDispatch,useSelector} from "react-redux"
 import { removeTodo } from '../features/todo/todoSlice'
+import { updateTodo } from '../features/todo/todoSlice'
 
 
 function Todos() {
     const dispatch = useDispatch()
+    const [isDisabled,setIsDisabled] = useState(true)
+    const [id,setId] = useState("")
+    const [data,setData] =useState("")
     const todos= useSelector(state=>state.todos)
+
+
   return (
 
     <>
     <div>Todos</div>
     <ul className="list-none">
         {todos.map((todo) => (
+          // setd(todo.text)
           <li
+          
             className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
             key={todo.id}
+          
           >
-            <div className='text-white'>{todo.text}</div>
+            <input type="text" name="" id="" value={todo.id===id?data:todo.text} onChange={(e)=>setData(e.target.value)}
+            disabled={isDisabled} className='text-black' 
+            />
+           
+           <div className='w-30 flex gap-4'>
+            <button
+             onClick={() => {
+              setId(todo.id)
+              console.log(id)
+              dispatch(updateTodo(data,id))
+              
+          setIsDisabled((prev)=>!prev)
+             }}
+              className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
+            >
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAArklEQVR4nNXRvWpCQRCG4ecGEq8lxJ9GlIAiiqiB2EmuMZAriuJRsVGS9GFgCruzB2zywsJO8X47M8t/YoUdtpg2ldeo8Ix+hhTzih98oZMn7kUscMQT5ilGJ8sSeYYT2llHyC/eSuRxvty7kascp5YRzhhkHYs75C/U0s+2h1m3U45d1PKIK/bo3oRNFLLBZy5vn3KMU8wHvjMkOnlpIj/gkvI7Wk3kIOZvLN2FP4/wJCl+tBgZAAAAAElFTkSuQmCC"></img>
+            </button>
             <button
              onClick={() => dispatch(removeTodo(todo.id))}
               className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
@@ -36,6 +61,8 @@ function Todos() {
                 />
               </svg>
             </button>
+            </div>
+
           </li>
         ))}
       </ul>
