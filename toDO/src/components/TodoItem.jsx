@@ -5,7 +5,7 @@ import { useUser } from '../contexts/userContext';
 
 function TodoItem({ todo }) {
 
-    const [todoMsg,setTodoMsg]= useState(todo.todo)
+    const [todoMsg,setTodoMsg]= useState(todo.data)
     const [isTodoEditable,setIsTodoEditable] = useState(false)
     
     const {updateTodo,removeTodo,toggleComplete}=useUser()
